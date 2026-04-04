@@ -1,679 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Richa Desai – Business System Analyst</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream: #faf8f5;
-      --off-white: #f2ede7;
-      --stone: #e8e2da;
-      --muted: #9a8f86;
-      --text: #2a2420;
-      --accent: #b85c38;
-      --accent-light: #f5ede8;
-      --border: #ddd6cd;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      background: rgba(250,248,245,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-      padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
-    }
-    .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 100px 2rem 60px;
-      max-width: 1100px;
-      margin: 0 auto;
-      gap: 5rem;
-    }
-    .hero-text { flex: 1; }
-    .hero-eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 1.2rem;
-    }
-    .hero-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(3rem, 6vw, 5rem);
-      line-height: 1.05;
-      margin-bottom: 1.4rem;
-      color: var(--text);
-    }
-    .hero-roles {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
-      margin-bottom: 2rem;
-    }
-    .role-tag {
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 0.3rem 0.8rem;
-      border-radius: 100px;
-    }
-    .hero-bio {
-      font-size: 1.05rem;
-      color: #5a4f4a;
-      max-width: 480px;
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-      line-height: 1.8;
-    }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      padding: 0.75rem 1.8rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .btn-primary:hover { background: #9e4d2f; transform: translateY(-1px); }
-    .btn-secondary {
-      background: transparent;
-      border: 1.5px solid var(--border);
-      color: var(--text);
-      padding: 0.75rem 1.8rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
-
-    /* PHOTO */
-    .hero-photo { flex-shrink: 0; }
-    .photo-frame {
-      width: 320px; height: 380px;
-      position: relative;
-    }
-    .photo-frame::before {
-      content: '';
-      position: absolute;
-      inset: -10px -10px 10px 10px;
-      border: 1.5px solid var(--border);
-      border-radius: 6px;
-      z-index: 0;
-    }
-    .photo-placeholder {
-      width: 100%; height: 100%;
-      background: var(--off-white);
-      border-radius: 4px;
-      position: relative; z-index: 1;
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      border: 1px solid var(--stone);
-    }
-    .photo-placeholder img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: top;
-    }
-    .photo-upload-hint {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: rgba(42,36,32,0.75);
-      color: #fff;
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 0.6rem;
-      letter-spacing: 0.04em;
-    }
-    .photo-icon {
-      font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.25;
-    }
-    .photo-text { font-size: 0.8rem; color: var(--muted); }
-
-    /* SECTION COMMON */
-    section { padding: 80px 2rem; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-    }
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      margin-bottom: 3rem;
-      line-height: 1.15;
-    }
-    .divider {
-      height: 1px;
-      background: var(--border);
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* SKILLS */
-    #skills { background: var(--off-white); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-    }
-    .skill-card {
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.6rem;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .skill-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.07); transform: translateY(-3px); }
-    .skill-card-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.8rem;
-    }
-    .skill-card h4 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.8rem;
-    }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .skill-tag {
-      font-size: 0.75rem;
-      background: var(--off-white);
-      border: 1px solid var(--stone);
-      padding: 0.2rem 0.6rem;
-      border-radius: 100px;
-      color: #6b6059;
-    }
-
-    /* CASE STUDIES */
-    .cases-grid { display: flex; flex-direction: column; gap: 2.5rem; }
-    .case-card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 5px 1fr;
-      transition: box-shadow 0.25s, transform 0.2s;
-    }
-    .case-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.09); transform: translateY(-3px); }
-    .case-accent-bar { background: var(--accent); }
-    .case-body { padding: 2rem 2.5rem; background: #fff; }
-    .case-meta {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem;
-      margin-bottom: 0.8rem;
-    }
-    .case-company {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 600;
-    }
-    .case-badge {
-      font-size: 0.7rem;
-      background: var(--accent-light);
-      color: var(--accent);
-      padding: 0.15rem 0.6rem;
-      border-radius: 100px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-    .case-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
-      margin-bottom: 0.6rem;
-      line-height: 1.3;
-    }
-    .case-description {
-      font-size: 0.95rem;
-      color: #5a4f4a;
-      margin-bottom: 1.4rem;
-      max-width: 600px;
-      font-weight: 300;
-    }
-    .case-metrics {
-      display: flex; flex-wrap: wrap; gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .metric { text-align: left; }
-    .metric-value {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 0.2rem;
-    }
-    .metric-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
-    .case-highlights { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-    .case-highlights li {
-      font-size: 0.9rem;
-      color: #5a4f4a;
-      padding-left: 1.2rem;
-      position: relative;
-    }
-    .case-highlights li::before {
-      content: '→';
-      position: absolute; left: 0;
-      color: var(--accent);
-      font-size: 0.75rem;
-      top: 0.1em;
-    }
-    .case-tools {
-      margin-top: 1.4rem;
-      display: flex; flex-wrap: wrap; gap: 0.4rem;
-    }
-    .case-tool {
-      font-size: 0.72rem;
-      background: var(--off-white);
-      border: 1px solid var(--stone);
-      padding: 0.2rem 0.65rem;
-      border-radius: 3px;
-      color: var(--muted);
-      font-weight: 500;
-      letter-spacing: 0.03em;
-    }
-
-    /* PROJECTS */
-    #projects { background: var(--off-white); }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .project-card {
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 2rem;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .project-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); transform: translateY(-3px); }
-    .project-number {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.5rem;
-      color: var(--stone);
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-    .project-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
-    .project-card p { font-size: 0.88rem; color: var(--muted); font-weight: 300; margin-bottom: 1.2rem; }
-    .project-deliverables { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
-    .project-deliverables li {
-      font-size: 0.8rem;
-      color: #7a6f6a;
-      padding-left: 1rem;
-      position: relative;
-    }
-    .project-deliverables li::before {
-      content: '·';
-      position: absolute; left: 0;
-      color: var(--accent);
-      font-size: 1rem;
-      line-height: 1.1;
-    }
-
-    /* CONTACT */
-    #contact { text-align: center; }
-    .contact-inner { max-width: 560px; margin: 0 auto; }
-    .contact-inner .section-label, .contact-inner .section-title { text-align: center; }
-    .contact-inner .section-title { margin-bottom: 1rem; }
-    .contact-subtext {
-      font-size: 0.97rem;
-      color: var(--muted);
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-    }
-    .contact-links {
-      display: flex; flex-direction: column; gap: 1rem; align-items: center;
-    }
-    .contact-link {
-      display: flex; align-items: center; gap: 0.8rem;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.95rem;
-      font-weight: 500;
-      padding: 0.8rem 1.8rem;
-      border: 1.5px solid var(--border);
-      border-radius: 4px;
-      min-width: 280px;
-      justify-content: center;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-    }
-    .contact-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-    .contact-link .icon { font-size: 1rem; }
-
-    /* FOOTER */
-    footer {
-      background: var(--text);
-      color: rgba(255,255,255,0.4);
-      text-align: center;
-      padding: 1.8rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
-    }
-
-    /* FADE-IN ANIMATION */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: none; }
-
-    @media (max-width: 768px) {
-      .hero { flex-direction: column-reverse; gap: 2.5rem; align-items: flex-start; padding-top: 90px; }
-      .photo-frame { width: 200px; height: 240px; }
-      .photo-frame::before { display: none; }
-      nav .nav-links { display: none; }
-      .case-body { padding: 1.5rem; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Richa Desai – Business System Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#faf8f5;--off:#f2ede7;--stone:#e8e2da;--muted:#9a8f86;--text:#2a2420;--acc:#b85c38;--accl:#f5ede8;--bdr:#ddd6cd}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:16px;line-height:1.7}
+nav{position:fixed;top:0;left:0;right:0;background:rgba(250,248,245,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr);z-index:100;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--text);text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;color:var(--muted);text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--acc)}
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 2rem 60px;max-width:1100px;margin:0 auto;gap:5rem}
+.hero-text{flex:1}
+.eyebrow{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--acc);font-weight:600;margin-bottom:1.2rem}
+.hero-name{font-family:'DM Serif Display',serif;font-size:clamp(3rem,6vw,5rem);line-height:1.05;margin-bottom:1.4rem}
+.roles{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem}
+.role-tag{font-size:0.75rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;background:var(--off);border:1px solid var(--bdr);color:var(--muted);padding:0.3rem 0.8rem;border-radius:100px}
+.bio{font-size:1.05rem;color:#5a4f4a;max-width:480px;margin-bottom:2.5rem;font-weight:300;line-height:1.8}
+.ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-p{background:var(--acc);color:#fff;padding:0.75rem 1.8rem;border-radius:4px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:background 0.2s}
+.btn-p:hover{background:#9e4d2f}
+.btn-s{border:1.5px solid var(--bdr);color:var(--text);padding:0.75rem 1.8rem;border-radius:4px;text-decoration:none;font-weight:500;font-size:0.9rem;transition:border-color 0.2s}
+.btn-s:hover{border-color:var(--acc);color:var(--acc)}
+.photo-wrap{flex-shrink:0}
+.photo-frame{width:320px;height:380px;position:relative}
+.photo-frame::before{content:'';position:absolute;inset:-10px -10px 10px 10px;border:1.5px solid var(--bdr);border-radius:6px;z-index:0}
+.photo-box{width:100%;height:100%;background:var(--off);border-radius:4px;position:relative;z-index:1;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--stone)}
+.photo-box img{width:100%;height:100%;object-fit:cover;object-position:top}
+.divider{height:1px;background:var(--bdr);max-width:1100px;margin:0 auto}
+section{padding:80px 2rem}
+.inner{max-width:1100px;margin:0 auto}
+.sec-label{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--acc);font-weight:600;margin-bottom:0.6rem}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,2.8rem);margin-bottom:3rem;line-height:1.15}
+#skills{background:var(--off)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.sk-card{background:var(--cream);border:1px solid var(--bdr);border-radius:6px;padding:1.6rem;transition:box-shadow 0.2s,transform 0.2s}
+.sk-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.07);transform:translateY(-3px)}
+.sk-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--acc);font-weight:600;margin-bottom:0.8rem}
+.sk-card h4{font-size:1rem;font-weight:600;margin-bottom:0.8rem}
+.tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.tag{font-size:0.73rem;background:var(--off);border:1px solid var(--stone);padding:0.2rem 0.6rem;border-radius:100px;color:#6b6059}
+.cases{display:flex;flex-direction:column;gap:2.5rem}
+.case-card{border:1px solid var(--bdr);border-radius:8px;overflow:hidden;display:grid;grid-template-columns:5px 1fr;transition:box-shadow 0.25s,transform 0.2s}
+.case-card:hover{box-shadow:0 12px 40px rgba(0,0,0,0.09);transform:translateY(-3px)}
+.acc-bar{background:var(--acc)}
+.case-body{padding:2rem 2.5rem;background:#fff}
+.case-meta{display:flex;flex-wrap:wrap;align-items:center;gap:0.8rem;margin-bottom:1.2rem}
+.case-co{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.badge{font-size:0.68rem;background:var(--accl);color:var(--acc);padding:0.15rem 0.6rem;border-radius:100px;font-weight:600;letter-spacing:0.04em}
+.metrics{display:flex;flex-wrap:wrap;gap:1.5rem;margin-bottom:1.5rem}
+.mv{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--acc);line-height:1;margin-bottom:0.2rem}
+.ml{font-size:0.73rem;color:var(--muted);font-weight:500}
+.highlights{list-style:none;display:flex;flex-direction:column;gap:0.4rem}
+.highlights li{font-size:0.9rem;color:#5a4f4a;padding-left:1.2rem;position:relative}
+.highlights li::before{content:'→';position:absolute;left:0;color:var(--acc);font-size:0.75rem;top:0.1em}
+.tools{margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:0.4rem}
+.tool{font-size:0.7rem;background:var(--off);border:1px solid var(--stone);padding:0.2rem 0.65rem;border-radius:3px;color:var(--muted);font-weight:500}
+#projects{background:var(--off)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.proj-card{background:var(--cream);border:1px solid var(--bdr);border-radius:6px;padding:2rem;transition:box-shadow 0.2s,transform 0.2s}
+.proj-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.08);transform:translateY(-3px)}
+.proj-num{font-family:'DM Serif Display',serif;font-size:2.5rem;color:var(--stone);line-height:1;margin-bottom:0.6rem}
+.proj-card h3{font-size:1.05rem;font-weight:600;margin-bottom:0.5rem}
+.proj-desc{font-size:0.88rem;color:var(--muted);font-weight:300;margin-bottom:0.8rem;line-height:1.65}
+.proj-sec{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--acc);font-weight:600;margin:1rem 0 0.35rem}
+.proj-detail{font-size:0.85rem;color:#5a4f4a;font-weight:300;line-height:1.65;margin-bottom:0.2rem}
+.deliverables{list-style:none;display:flex;flex-direction:column;gap:0.3rem}
+.deliverables li{font-size:0.8rem;color:#7a6f6a;padding-left:1rem;position:relative}
+.deliverables li::before{content:'·';position:absolute;left:0;color:var(--acc);font-size:1rem;line-height:1.1}
+#contact{text-align:center}
+.contact-wrap{max-width:560px;margin:0 auto}
+.contact-sub{font-size:0.95rem;color:var(--muted);margin-bottom:2.5rem;font-weight:300}
+.contact-links{display:flex;flex-direction:column;gap:1rem;align-items:center}
+.contact-link{display:flex;align-items:center;gap:0.8rem;text-decoration:none;color:var(--text);font-size:0.95rem;font-weight:500;padding:0.8rem 1.8rem;border:1.5px solid var(--bdr);border-radius:4px;min-width:280px;justify-content:center;transition:border-color 0.2s,color 0.2s}
+.contact-link:hover{border-color:var(--acc);color:var(--acc)}
+footer{background:var(--text);color:rgba(255,255,255,0.4);text-align:center;padding:1.8rem;font-size:0.8rem;letter-spacing:0.05em}
+.fade-in{opacity:0;transform:translateY(22px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:none}
+@media(max-width:768px){.hero{flex-direction:column-reverse;gap:2.5rem;align-items:flex-start;padding-top:90px}.photo-frame{width:200px;height:240px}.photo-frame::before{display:none}.nav-links{display:none}.case-body{padding:1.5rem}}
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a class="nav-logo" href="#">Richa Desai</a>
-    <ul class="nav-links">
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#case-studies">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<nav>
+  <a class="nav-logo" href="#">Richa Desai</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <!-- HERO -->
-  <section style="padding: 0;">
-    <div class="hero">
-      <div class="hero-text fade-in">
-        <p class="hero-eyebrow">Business System Analyst Portfolio</p>
-        <h1 class="hero-name">Richa<br/>Desai</h1>
-        <div class="hero-roles">
-          <span class="role-tag">Business System Analyst</span>
-          <span class="role-tag">Business Analyst</span>
-          <span class="role-tag">Product Analyst</span>
-          <span class="role-tag">Project Coordinator</span>
-        </div>
-        <p class="hero-bio">
-          I bridge the gap between business needs and technical delivery teams that includes translating complex requirements into clear documentation, actionable user stories, and measurable outcomes across retail, e-commerce, and SaaS.
-        </p>
-        <div class="hero-ctas">
-          <a href="#case-studies" class="btn-primary">View Experience</a>
-          <a href="#contact" class="btn-secondary">Get in Touch</a>
-        </div>
+<section style="padding:0">
+  <div class="hero">
+    <div class="hero-text fade-in">
+      <p class="eyebrow">Business System Analyst Portfolio</p>
+      <h1 class="hero-name">Richa<br/>Desai</h1>
+      <div class="roles">
+        <span class="role-tag">Business System Analyst</span>
+        <span class="role-tag">Business Analyst</span>
+        <span class="role-tag">Product Analyst</span>
+        <span class="role-tag">Project Coordinator</span>
       </div>
-
-      <div class="hero-photo fade-in" style="transition-delay: 0.15s;">
-        <div class="photo-frame">
-        <div class="photo-placeholder">
-            <img src="IMG_5046.jpg" alt="Richa Desai" />
-          </div>
+      <p class="bio">I bridge the gap between business needs and technical delivery teams by translating complex requirements into clear documentation, actionable user stories, and measurable outcomes across retail, e-commerce, and SaaS environments.</p>
+      <div class="ctas">
+        <a href="#experience" class="btn-p">View Experience</a>
+        <a href="#contact" class="btn-s">Get in Touch</a>
+      </div>
+    </div>
+    <div class="photo-wrap fade-in" style="transition-delay:0.15s">
+      <div class="photo-frame">
+        <div class="photo-box">
+          <img src="IMG_5046.jpg" alt="Richa Desai"/>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <div class="divider"></div>
+<div class="divider"></div>
 
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="section-inner">
-      <p class="section-label">Expertise</p>
-      <h2 class="section-title">Skills & Tools</h2>
-      <div class="skills-grid">
-        <div class="skill-card fade-in">
-          <p class="skill-card-label">Core BA</p>
-          <h4>Business Analysis</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">Requirements Gathering</span>
-            <span class="skill-tag">User Stories</span>
-            <span class="skill-tag">BRDs</span>
-            <span class="skill-tag">Functional Specs</span>
-            <span class="skill-tag">Process Mapping</span>
-          </div>
+<section id="skills">
+  <div class="inner">
+    <p class="sec-label">Expertise</p>
+    <h2 class="sec-title">Skills &amp; Tools</h2>
+    <div class="skills-grid">
+      <div class="sk-card fade-in">
+        <p class="sk-label">Core BA</p>
+        <h4>Business Analysis</h4>
+        <div class="tags">
+          <span class="tag">Requirements Gathering</span>
+          <span class="tag">User Stories</span>
+          <span class="tag">BRDs</span>
+          <span class="tag">Functional Specs</span>
+          <span class="tag">Process Mapping</span>
         </div>
-        <div class="skill-card fade-in" style="transition-delay:0.1s">
-          <p class="skill-card-label">Analysis</p>
-          <h4>Data & Reporting</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">Dashboards</span>
-            <span class="skill-tag">KPIs</span>
-            <span class="skill-tag">Reporting</span>
-            <span class="skill-tag">Data Validation</span>
-            <span class="skill-tag">UAT</span>
-          </div>
+      </div>
+      <div class="sk-card fade-in" style="transition-delay:0.1s">
+        <p class="sk-label">Analysis</p>
+        <h4>Data &amp; Reporting</h4>
+        <div class="tags">
+          <span class="tag">Dashboards</span>
+          <span class="tag">KPIs</span>
+          <span class="tag">Reporting</span>
+          <span class="tag">Data Validation</span>
+          <span class="tag">UAT</span>
         </div>
-        <div class="skill-card fade-in" style="transition-delay:0.2s">
-          <p class="skill-card-label">Tools</p>
-          <h4>Tech Stack</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">JIRA</span>
-            <span class="skill-tag">Confluence</span>
-            <span class="skill-tag">Azure DB</span>
-            <span class="skill-tag">Excel</span>
-            <span class="skill-tag">SharePoint</span>
-            <span class="skill-tag">SQL</span>
-          </div>
+      </div>
+      <div class="sk-card fade-in" style="transition-delay:0.2s">
+        <p class="sk-label">Tools</p>
+        <h4>Tech Stack</h4>
+        <div class="tags">
+          <span class="tag">JIRA</span>
+          <span class="tag">Confluence</span>
+          <span class="tag">Azure DB</span>
+          <span class="tag">Excel</span>
+          <span class="tag">SharePoint</span>
+          <span class="tag">SQL</span>
         </div>
-        <div class="skill-card fade-in" style="transition-delay:0.3s">
-          <p class="skill-card-label">Soft Skills</p>
-          <h4>Collaboration</h4>
-          <div class="skill-tags">
-            <span class="skill-tag">Stakeholder Management</span>
-            <span class="skill-tag">Communication</span>
-            <span class="skill-tag">Problem Solving</span>
-            <span class="skill-tag">Agile / Scrum</span>
-          </div>
+      </div>
+      <div class="sk-card fade-in" style="transition-delay:0.3s">
+        <p class="sk-label">Soft Skills</p>
+        <h4>Collaboration</h4>
+        <div class="tags">
+          <span class="tag">Stakeholder Management</span>
+          <span class="tag">Communication</span>
+          <span class="tag">Problem Solving</span>
+          <span class="tag">Agile / Scrum</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <div class="divider"></div>
+<div class="divider"></div>
 
-  <!-- EXPERIENCE -->
-  <section id="case-studies">
-    <div class="section-inner">
-      <p class="section-label">Experience</p>
-      <h2 class="section-title">Work Experience</h2>
-      <div class="cases-grid">
+<section id="experience">
+  <div class="inner">
+    <p class="sec-label">Experience</p>
+    <h2 class="sec-title">Work Experience</h2>
+    <div class="cases">
 
-        <!-- Experience 1 -->
-        <div class="case-card fade-in">
-          <div class="case-accent-bar"></div>
-          <div class="case-body">
-            <div class="case-meta">
-              <span class="case-company">Canadian Tire Corporation · Toronto, Canada</span>
-              <span class="case-badge">Technologist / Business System Analyst</span>
-            </div>
-            <div class="case-metrics">
-              <div class="metric">
-                <div class="metric-value">60%</div>
-                <div class="metric-label">Data efficiency improvement</div>
-              </div>
-              <div class="metric">
-                <div class="metric-value">95%</div>
-                <div class="metric-label">Sprint items on schedule</div>
-              </div>
-              <div class="metric">
-                <div class="metric-value">30%</div>
-                <div class="metric-label">Feature adoption increase</div>
-              </div>
-            </div>
-            <ul class="case-highlights">
-              <li>Improved data efficiency by 60% during a major platform migration</li>
-              <li>Delivered 95% of sprint items on schedule through structured backlog management</li>
-              <li>Boosted feature adoption by 30% via clear user story definition and UAT coordination</li>
-              <li>Built a centralized documentation hub in Confluence used across multiple teams</li>
-            </ul>
-            <div class="case-tools">
-              <span class="case-tool">JIRA</span>
-              <span class="case-tool">Confluence</span>
-              <span class="case-tool">Azure DB</span>
-              <span class="case-tool">SharePoint</span>
-              <span class="case-tool">Agile/Scrum</span>
-            </div>
+      <div class="case-card fade-in">
+        <div class="acc-bar"></div>
+        <div class="case-body">
+          <div class="case-meta">
+            <span class="case-co">Canadian Tire Corporation &middot; Toronto, Canada</span>
+            <span class="badge">Technologist / Business System Analyst</span>
           </div>
-        </div>
-
-        <!-- Experience 2 -->
-        <div class="case-card fade-in" style="transition-delay:0.1s">
-          <div class="case-accent-bar"></div>
-          <div class="case-body">
-            <div class="case-meta">
-              <span class="case-company">Directions Software Solutions · Mumbai, India</span>
-              <span class="case-badge">Functional Lead</span>
-            </div>
-            <ul class="case-highlights">
-              <li>Owned functional requirements across enterprise retail & payments domains</li>
-              <li>Created workflows & process documentation that improved team-wide clarity</li>
-              <li>Designed Excel + SQL dashboards for KPI tracking and executive reporting</li>
-              <li>Led UAT planning and execution — coordinating test cases, sign-off, and issue resolution</li>
-            </ul>
-            <div class="case-tools">
-              <span class="case-tool">Excel</span>
-              <span class="case-tool">SQL</span>
-              <span class="case-tool">UAT</span>
-              <span class="case-tool">Process Mapping</span>
-              <span class="case-tool">BRDs</span>
-            </div>
+          <div class="metrics">
+            <div><div class="mv">60%</div><div class="ml">Data efficiency improvement</div></div>
+            <div><div class="mv">95%</div><div class="ml">Sprint items on schedule</div></div>
+            <div><div class="mv">30%</div><div class="ml">Feature adoption increase</div></div>
           </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-inner">
-      <p class="section-label">Work Samples</p>
-      <h2 class="section-title">Projects</h2>
-      <div class="projects-grid">
-
-        <div class="project-card fade-in">
-          <div class="project-number">01</div>
-          <h3>E-Commerce Checkout Optimization</h3>
-          <p>Mapped and improved a multi-step checkout flow, reducing drop-off through structured requirements and UX-aligned user stories.</p>
-          <ul class="project-deliverables">
-            <li>User stories & acceptance criteria</li>
-            <li>End-to-end flow diagrams</li>
-            <li>Stakeholder review sessions</li>
+          <ul class="highlights">
+            <li>Improved data efficiency by 60% during a major platform migration</li>
+            <li>Delivered 95% of sprint items on schedule through structured backlog management</li>
+            <li>Boosted feature adoption by 30% via clear user story definition and UAT coordination</li>
+            <li>Built a centralized documentation hub in Confluence used across multiple teams</li>
           </ul>
-        </div>
-
-        <div class="project-card fade-in" style="transition-delay:0.1s">
-          <div class="project-number">02</div>
-          <h3>Customer Support Workflow Redesign</h3>
-          <p>Redesigned support processes from As-Is to To-Be, creating SOPs and a metrics dashboard to track resolution performance.</p>
-          <ul class="project-deliverables">
-            <li>As-Is / To-Be process maps</li>
-            <li>Standard Operating Procedures</li>
-            <li>Metrics & performance dashboard</li>
-          </ul>
-        </div>
-
-        <div class="project-card fade-in" style="transition-delay:0.2s">
-          <div class="project-number">03</div>
-          <h3>Data Quality Dashboard</h3>
-          <p>Built an Excel-based KPI tracker with pivot tables and automated validations to surface data quality issues for stakeholders.</p>
-          <ul class="project-deliverables">
-            <li>KPI framework definition</li>
-            <li>Pivot table & chart templates</li>
-            <li>Actionable insight summaries</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-inner">
-      <div class="contact-inner">
-        <p class="section-label">Let's Connect</p>
-        <h2 class="section-title">Get in Touch</h2>
-        <p class="contact-subtext">Open to new Business System Analyst, Technical BSA, and Product Analyst opportunities. Feel free to reach out.</p>
-        <div class="contact-links">
-          <a href="mailto:richad810@gmail.com" class="contact-link">
-            <span class="icon">✉</span> richad810@gmail.com
-          </a>
-          <a href="https://www.linkedin.com/in/richaddesai" target="_blank" class="contact-link">
-            <span class="icon">in</span> linkedin.com/in/richaddesai
-          </a>
+          <div class="tools">
+            <span class="tool">JIRA</span>
+            <span class="tool">Confluence</span>
+            <span class="tool">Azure DB</span>
+            <span class="tool">SharePoint</span>
+            <span class="tool">Agile/Scrum</span>
+          </div>
         </div>
       </div>
+
+      <div class="case-card fade-in" style="transition-delay:0.1s">
+        <div class="acc-bar"></div>
+        <div class="case-body">
+          <div class="case-meta">
+            <span class="case-co">Directions Software Solutions &middot; Mumbai, India</span>
+            <span class="badge">Functional Lead</span>
+          </div>
+          <ul class="highlights">
+            <li>Owned functional requirements across enterprise retail &amp; payments domains</li>
+            <li>Created workflows &amp; process documentation that improved team-wide clarity</li>
+            <li>Designed Excel + SQL dashboards for KPI tracking and executive reporting</li>
+            <li>Led UAT planning and execution, coordinating test cases, sign-off, and issue resolution</li>
+          </ul>
+          <div class="tools">
+            <span class="tool">Excel</span>
+            <span class="tool">SQL</span>
+            <span class="tool">UAT</span>
+            <span class="tool">Process Mapping</span>
+            <span class="tool">BRDs</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    © 2025 Richa Desai · Business System Analyst Portfolio
-  </footer>
+<div class="divider"></div>
 
-  <script>
-    // Intersection observer for fade-in animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  </script>
+<section id="projects">
+  <div class="inner">
+    <p class="sec-label">Work Samples</p>
+    <h2 class="sec-title">Projects</h2>
+    <div class="proj-grid">
+
+      <div class="proj-card fade-in">
+        <div class="proj-num">01</div>
+        <span class="badge" style="display:inline-block;margin-bottom:0.7rem">PaaS &middot; Canadian Tire</span>
+        <h3>Eco Fee Management System (PaaS)</h3>
+        <p class="proj-desc">Cloud-based platform managing eco fee collection from customers on regulated products, handling fee calculations, provincial tax rules, and stewardship organization reporting across Canada.</p>
+        <p class="proj-sec">My Responsibility</p>
+        <p class="proj-detail">Supported cloud migration working with large SKU datasets covering product categories, attributes, and province-based fee rules. Gathered requirements from stakeholders, coordinated with the offshore team, and led data validation to identify and resolve discrepancies.</p>
+        <p class="proj-sec">BA Techniques Used</p>
+        <ul class="deliverables">
+          <li>AS-IS to TO-BE process analysis</li>
+          <li>Requirements gathering &amp; stakeholder workshops</li>
+          <li>Data validation using Excel pivot tables</li>
+          <li>Root cause analysis via database table comparison</li>
+          <li>Defect resolution meetings with business teams</li>
+        </ul>
+      </div>
+
+      <div class="proj-card fade-in" style="transition-delay:0.1s">
+        <div class="proj-num">02</div>
+        <span class="badge" style="display:inline-block;margin-bottom:0.7rem">SaaS &middot; CRM Implementation</span>
+        <h3>DealCloud (SaaS)</h3>
+        <p class="proj-desc">Evaluated and deployed a SaaS CRM for the Corporate Venture Capital team to log investment interactions, store presentations, and capture assessments — with MS Office and Okta integrations.</p>
+        <p class="proj-sec">My Responsibility</p>
+        <p class="proj-detail">Led requirements analysis through meetings with Business and IT teams. Acted as the communication bridge between the vendor, business stakeholders, and internal architects throughout the full deployment lifecycle.</p>
+        <p class="proj-sec">BA Techniques Used</p>
+        <ul class="deliverables">
+          <li>User story writing &amp; acceptance criteria</li>
+          <li>Stakeholder communication &amp; vendor coordination</li>
+          <li>Requirements documentation &amp; solution analysis</li>
+          <li>Integration assessment (MS Office, Okta)</li>
+        </ul>
+      </div>
+
+      <div class="proj-card fade-in" style="transition-delay:0.2s">
+        <div class="proj-num">03</div>
+        <span class="badge" style="display:inline-block;margin-bottom:0.7rem">Internal Tool &middot; Retail</span>
+        <h3>B2B Product Management</h3>
+        <p class="proj-desc">Forecasting module analyzing seasonal SKU performance trends to improve product visibility and support data-driven decisions on recurring product demand across future retail seasons.</p>
+        <p class="proj-sec">My Responsibility</p>
+        <p class="proj-detail">Gathered requirements directly from clients and collaborated with the internal development team to define and deliver new features, ensuring business needs were accurately translated into technical solutions.</p>
+        <p class="proj-sec">BA Techniques Used</p>
+        <ul class="deliverables">
+          <li>Client requirements gathering &amp; documentation</li>
+          <li>Feature definition with dev team collaboration</li>
+          <li>Sprint tracking &amp; backlog management via JIRA</li>
+          <li>Process documentation in Confluence</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="inner">
+    <div class="contact-wrap">
+      <p class="sec-label">Let's Connect</p>
+      <h2 class="sec-title">Get in Touch</h2>
+      <p class="contact-sub">Open to new Business System Analyst, Business Analyst, and Product Analyst opportunities. Feel free to reach out.</p>
+      <div class="contact-links">
+        <a href="mailto:richad810@gmail.com" class="contact-link">&#9993; richad810@gmail.com</a>
+        <a href="https://www.linkedin.com/in/richaddesai" target="_blank" class="contact-link">in linkedin.com/in/richaddesai</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>&copy; 2025 Richa Desai &middot; Business System Analyst Portfolio</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.12});
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
